@@ -1,5 +1,5 @@
 # Uncomment the below line after you install tty-prompt
-# require 'tty-prompt'
+require 'tty-prompt'
 require './Traveler.rb'
 require './Airline.rb'
 require './Ticket.rb'
@@ -11,16 +11,28 @@ southwest = Airline.new('Southwest Airlines')
 josh = Traveler.new('Josh')
 raul = Traveler.new('Raúl')
 
-Ticket.new(josh, united)
-Ticket.new(raul, united)
-Ticket.new(raul, southwest)
+Ticket.new(united, josh)
+Ticket.new(united, raul)
+Ticket.new(southwest, raul)
 
 airline_choices = Airline.all.map do | airline |
     {
-        value: airline,
-        name: airline.label
+        name: airline.label,
+        value: airline
     }
 end
 
 # Uncomment the below line after you install tty-prompt
-# prompt = TTY::Prompt.new
+prompt = TTY::Prompt.new
+travellerObjectArr = []
+ticketWithSelectedAirlineArr = []
+
+airlineObject = prompt.select('Please select an airline:', airline_choices)
+ticketWithSelectedAirlineArr = Ticket.select_airline(airlineObject)
+ticketWithSelectedAirlineArr.each do |ticket|
+    travellerObjectArr << ticket.traveler
+end
+# travellerObjectArr = ticketWithSelectedAirlineArr.select_travellers_in_airline
+travellerObjectArr.each do |traveller|
+    puts traveller.name
+end

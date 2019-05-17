@@ -20,4 +20,7 @@ class Airline
         end
     end
 
+    def label
+        @name
+    end
 end

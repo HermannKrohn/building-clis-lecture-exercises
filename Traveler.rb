@@ -1,5 +1,5 @@
 class Traveler
-
+    attr_reader :name
     @@all = []
 
     def self.all
